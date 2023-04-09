@@ -12,10 +12,10 @@ function App() {
   };
 
   const handleIncrement2 = () => {
-    setState2(state + 1);
+    setState2(state2 + 1);
   };
   const handleDecrement2 = () => {
-    setState2(state - 1);
+    setState2(state2 - 1);
   };
   window.increment = handleIncrement;
   window.decrease = handleDecrement;
