@@ -19,7 +19,11 @@ function React() {
   };
 
   const createSetter = (index) => (newValue) => {
-    state[index] = newValue;
+    if (typeof newValue === "function") {
+      state[index] = newValue(state[index]);
+    } else {
+      state[index] = newValue;
+    }
     reRender();
   };
 

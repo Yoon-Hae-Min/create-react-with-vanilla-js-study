@@ -5,17 +5,19 @@ function App() {
   const [state2, setState2] = useState(0);
 
   const handleIncrement = () => {
-    setState(state + 1);
+    setState((pre) => pre + 1);
+    setState((pre) => pre + 1);
+    setState((pre) => pre + 1);
   };
   const handleDecrement = () => {
-    setState(state - 1);
+    setState((pre) => pre - 1);
   };
 
   const handleIncrement2 = () => {
-    setState2(state2 + 1);
+    setState2((pre) => pre + 1);
   };
   const handleDecrement2 = () => {
-    setState2(state2 - 1);
+    setState2((pre) => pre - 1);
   };
   window.increment = handleIncrement;
   window.decrease = handleDecrement;
