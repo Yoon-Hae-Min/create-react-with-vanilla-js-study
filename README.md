@@ -1,14 +1,12 @@
 # create-react-with-vanilla-js-study
 
 ## 노션
-
 윤해민: https://yoonhaemin.notion.site/Create-React-With-JS-c4638051a0324dd392ff5363a30e4a76
 
 <br/>
 <br/>
 
 ## 👪 스터디 맴버
-
 <table>
   <tr>
     <td>
@@ -81,6 +79,7 @@ React의 핵심 내용을 직접 구현하면서 파악해 보자
 - 각자가 구현 및 분석을 토대로 발표진행
 - 공부하면서 몰랐던 부분이나 질의응답 진행
 
+  
 <br/>
 <br/>
 
