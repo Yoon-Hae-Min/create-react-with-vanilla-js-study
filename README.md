@@ -3,8 +3,7 @@
 ## 노션
 윤해민: https://yoonhaemin.notion.site/Create-React-With-JS-c4638051a0324dd392ff5363a30e4a76
 
-강주혁: https://www.notion.so/kangju2000/1-4d2d46f39f354205945e3b42b0c75218?pvs=4
-
+강주혁: https://kangju2000.notion.site/Vanila-JS-React-c4db2f7c0a6e4c299f259084b4ec9f99
 <br/>
 <br/>
 
