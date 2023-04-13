@@ -5,7 +5,6 @@ const states = []; // useState를 여러번 쓸 수 있도록 배열로 구성
 //useState 함수 바깥에서 state를 관리하므로 state 값이 유지된다.
 
 export function useState(initState) {
-  console.log("hrre", initState);
   const key = currentStateKey;
   if (states.length === key) {
     // state에 값이 없을 때 초기화 진행
