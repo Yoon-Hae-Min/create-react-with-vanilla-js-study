@@ -88,9 +88,9 @@ React의 핵심 동작원리를 직접 구현하면서 파악해 보자
 ## 🗓️스터디 목차
 
 1주차: useState를 분석 하고 vanilla js를 사용해서 구현한다. (04/13)  
-2주차: useRef, useEffect, useContext를 분석하고 vanilla js를 사용해서 구현한다 (04/20)
-3주차: jsx에 대해서 분석하고 vanilla js를 사용해서 구현한다.
-4주차: virtualDom에 대해서 분석하고 vanilla js를 사용해서 구현한다. (견적 체크후 2주로 늘릴수도 있음)
-5주차: spa (express를 이용)에 대해 알아보고 vanilla js를 사용해서 구현한다.
-6주차: 각자 더 해보고 싶은 내용을 조사한다.
-7주차: 구현한 custom React를 바탕으로 간단한앱(추가예정)을 구현한다.
+2주차: useRef, useEffect, useContext를 분석하고 vanilla js를 사용해서 구현한다 (04/20)  
+3주차: jsx에 대해서 분석하고 vanilla js를 사용해서 구현한다.  
+4주차: virtualDom에 대해서 분석하고 vanilla js를 사용해서 구현한다. (견적 체크후 2주로 늘릴수도 있음)  
+5주차: spa (express를 이용)에 대해 알아보고 vanilla js를 사용해서 구현한다.  
+6주차: 각자 더 해보고 싶은 내용을 조사한다.  
+7주차: 구현한 custom React를 바탕으로 간단한앱(추가예정)을 구현한다.  
