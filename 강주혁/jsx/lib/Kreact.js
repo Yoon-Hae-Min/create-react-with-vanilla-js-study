@@ -115,6 +115,22 @@ function kreact() {
       const newElement = document.createElement(type);
       Object.keys(props).forEach(prop => {
         if (prop === 'ref' || prop === 'key' || prop === 'children') return;
+        if (prop === 'className') {
+          newElement.setAttribute('class', props[prop]);
+          return;
+        }
+        if (prop === 'style' && typeof props[prop] === 'object') {
+          const style = props[prop];
+          Object.keys(style).forEach(styleName => {
+            newElement.style[styleName] = style[styleName];
+          });
+          return;
+        }
+        if (prop.startsWith('on')) {
+          const eventName = prop.substring(2).toLowerCase();
+          newElement.addEventListener(eventName, props[prop]);
+          return;
+        }
         const newAttribute = document.createAttribute(prop);
         newAttribute.value = props[prop];
         newElement.setAttributeNode(newAttribute);
@@ -124,8 +140,8 @@ function kreact() {
       });
       return newElement;
     };
-    const newElement = createNode(_rootElement);
-    _root.appendChild(newElement);
+    const newElement = createNode(_rootElement());
+    _root.firstChild ? _root.replaceChild(newElement, _root.firstChild) : _root.appendChild(newElement);
   }
   function render(root, Element) {
     _root = root;
