@@ -42,8 +42,8 @@ function kreact() {
   }
   function createElement(type, config, ...children) {
     const props = {};
-    const ref = null;
-    const key = null;
+    let ref = null;
+    let key = null;
     if (config !== null) {
       if (config.ref) ref = config.ref;
       if (config.key) key = config.key;
@@ -53,7 +53,22 @@ function kreact() {
         }
       }
     }
+    props.children = children.reduce((array, child) => {
+      if (typeof child !== 'object') {
+        const el = {
+          type: 'TEXT_ELEMENT',
+          props: {
+            nodeValue: child,
+            children: []
+          }
+        };
+        return [...array, el];
+      }
+      if (Array.isArray(child)) return [...array, ...child];
+      return [...array, child];
+    }, []);
     if (typeof type === 'function') {
+      if (typeof type === fragment) return fragment(props, key);
       const el = type(props);
       el.props = {
         ...el.props,
@@ -61,11 +76,6 @@ function kreact() {
         key
       };
       return el;
-    }
-    if (children.length === 1) {
-      props.children = children[0];
-    } else if (children.length > 1) {
-      props.children = children;
     }
     const element = {
       type: type,
@@ -77,24 +87,41 @@ function kreact() {
     };
     return element;
   }
+  function fragment(props, key) {
+    const element = {
+      type: 'FRAGMENT',
+      props: {
+        ...props,
+        key
+      }
+    };
+    return element;
+  }
   function _render() {
     console.log('렌더링');
     const createNode = element => {
-      const newElement = document.createElement(element.type);
-      Object.keys(element.props).forEach(prop => {
+      const {
+        type,
+        props
+      } = element;
+      if (type === 'TEXT_ELEMENT') return document.createTextNode(props.nodeValue);
+      if (type === 'FRAGMENT') {
+        const fragment = document.createDocumentFragment();
+        props.children.forEach(child => {
+          fragment.appendChild(createNode(child));
+        });
+        return fragment;
+      }
+      const newElement = document.createElement(type);
+      Object.keys(props).forEach(prop => {
         if (prop === 'ref' || prop === 'key' || prop === 'children') return;
         const newAttribute = document.createAttribute(prop);
-        newAttribute.value = element.props[prop];
+        newAttribute.value = props[prop];
         newElement.setAttributeNode(newAttribute);
       });
-      if (element.props?.children) {
-        if (typeof element.props.children !== 'object') {
-          newElement.appendChild(document.createTextNode(element.props.children));
-          return newElement;
-        }
-        if (!Array.isArray(element.props.children)) element.props.children = [element.props.children];
-        element.props.children.forEach(child => typeof child === 'object' ? newElement.appendChild(createNode(child)) : newElement.appendChild(document.createTextNode(child)));
-      }
+      props.children.forEach(child => {
+        newElement.appendChild(createNode(child));
+      });
       return newElement;
     };
     const newElement = createNode(_rootElement);
@@ -110,7 +137,8 @@ function kreact() {
     render,
     useContext,
     createContext,
-    createElement
+    createElement,
+    fragment
   };
 }
 const Kreact = kreact();
@@ -119,6 +147,7 @@ export const {
   render,
   useContext,
   createContext,
-  createElement
+  createElement,
+  fragment
 } = Kreact;
 export default Kreact;

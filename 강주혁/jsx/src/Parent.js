@@ -1,9 +1,9 @@
 import Kreact from './Kreact.js';
 
-export default function Parent({ name }) {
+export default function Parent({ children }) {
   return (
     <div style="background-color: blue">
-      <h1>Parent: {name}</h1>
+      {children}
     </div>
   )
 }
