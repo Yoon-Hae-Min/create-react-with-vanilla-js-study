@@ -10,4 +10,5 @@
 useRef 를 통해 선언된 변수는 리렌더링을 유발하지도 않고, 리렌더링될 때도 이전의 값을 기억하고 있으며, 컴포넌트마다 각각의 값을 가질 수 있다.
 ```
 
-[참고](https://dev.to/dylanju/useref-3j37)
+[useRef()가 순수 자바스크립트 객체라는 의미를 곱씹어보기](https://dev.to/dylanju/useref-3j37)
+[React-useRef](https://ko.reactjs.org/docs/hooks-reference.html)
