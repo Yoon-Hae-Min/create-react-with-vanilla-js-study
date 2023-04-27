@@ -8,5 +8,8 @@ const jsx = (strings, ...args) => {
 
   let template = document.createElement("div");
 
+  template.innerHTML = strings.map((str, index) => {
+    return `${str}${argsString}`;
+  });
   return template.firstElementChild ?? template;
 };
