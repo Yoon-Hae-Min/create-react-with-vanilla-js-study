@@ -1,8 +1,12 @@
+import { createVirtualDOM, updateVirtualDOM, updateRealDOM } from "../KreactDOM/KreactDOM.js";
+
 function kreact() {
   const _states = [];
   let _stateIndex = 0;
-  let _rootElement = null;
   let _root = null;
+  let _rootComponent = null;
+  let _oldNode = null;
+  let _newNode = null;
 
   function useState(initialState) {
     let stateIndex = _stateIndex++;
@@ -114,61 +118,25 @@ function kreact() {
 
   function _render() {
     console.log('렌더링')
+    _newNode = _rootComponent();
 
-    const createNode = (element) => {
-      const { type, props } = element;
-      if (type === 'TEXT_ELEMENT') return document.createTextNode(props.nodeValue);
-      if (type === 'FRAGMENT') {
-        const fragment = document.createDocumentFragment();
-        props.children.forEach(child => {
-          fragment.appendChild(createNode(child));
-        });
-
-        return fragment;
-      }
-
-      const newElement = document.createElement(type);
-
-      Object.keys(props).forEach(prop => {
-        if (prop === 'ref' || prop === 'key' || prop === 'children') return;
-        if (prop === 'className') {
-          newElement.setAttribute('class', props[prop]);
-          return;
-        }
-        if (prop === 'style' && typeof props[prop] === 'object') {
-          const style = props[prop];
-          Object.keys(style).forEach(styleName => {
-            newElement.style[styleName] = style[styleName];
-          });
-          return;
-        }
-
-        if (prop.startsWith('on')) {
-          const eventName = prop.substring(2).toLowerCase();
-          newElement.addEventListener(eventName, props[prop]);
-          return;
-        }
-
-        const newAttribute = document.createAttribute(prop);
-        newAttribute.value = props[prop];
-        newElement.setAttributeNode(newAttribute);
-      });
-
-      props.children.forEach(child => {
-        newElement.appendChild(createNode(child));
-      });
-
-      return newElement;
+    if (!_oldNode) {
+      updateRealDOM(createVirtualDOM(_newNode), _root);
+      _oldNode = _newNode;
+      return;
     }
 
-    const newElement = createNode(_rootElement());
+    const cloneRoot = _root.cloneNode(true);
+    const element = updateVirtualDOM(cloneRoot, _oldNode, _newNode);
 
-    _root.firstChild ? _root.replaceChild(newElement, _root.firstChild) : _root.appendChild(newElement);
+    updateRealDOM(element, _root);
+    _oldNode = _newNode;
+    _root = element;
   }
 
-  function render(root, Element) {
+  function render(root, component) {
     _root = root;
-    _rootElement = Element;
+    _rootComponent = component;
 
     _render();
   }

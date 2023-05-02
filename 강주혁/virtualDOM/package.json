@@ -1,0 +1,14 @@
+{
+  "name": "jsx",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d lib --delete-dir-on-start",
+    "watch": "babel src -d lib --delete-dir-on-start -w"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.5",
+    "@babel/plugin-transform-react-jsx": "^7.21.0"
+  }
+}
