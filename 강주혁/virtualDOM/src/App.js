@@ -1,6 +1,6 @@
-import Kreact from './Kreact/Kreact.js';
-import Child from './Child.js';
-import Parent from './Parent.js';
+import Kreact from './Kreact';
+import Child from './Child';
+import Parent from './Parent';
 
 
 export default function App() {

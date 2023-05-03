@@ -1,5 +1,5 @@
-import App from "./App.js";
-import Kreact, { render } from "./Kreact/Kreact.js";
+import App from "./App";
+import Kreact, { render } from "./Kreact";
 
 const root = document.getElementById('root');
 render(root, App);

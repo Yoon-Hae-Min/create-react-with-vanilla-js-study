@@ -1,4 +1,4 @@
-import Kreact from './Kreact/Kreact.js';
+import Kreact from './Kreact';
 
 export default function Parent({ children }) {
   return (

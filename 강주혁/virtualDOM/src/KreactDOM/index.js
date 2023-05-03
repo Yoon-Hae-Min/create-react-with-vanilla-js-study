@@ -1,3 +1,38 @@
+const getElementWithStyle = (element, props, oldProps) => {
+  if (element.nodeType === Node.TEXT_NODE) return element;
+
+  const cloneElement = element.cloneNode(true);
+  Object.keys(props).forEach(prop => {
+    if (prop === 'ref' || prop === 'key' || prop === 'children') return;
+    if (prop === 'className') {
+      cloneElement.setAttribute('class', props[prop]);
+      return;
+    }
+    if (prop === 'style' && typeof props[prop] === 'object') {
+      const style = props[prop];
+      console.log('style', style)
+      console.log('cloneElement', cloneElement)
+      Object.keys(style).forEach(styleName => {
+        cloneElement.style[styleName] = style[styleName];
+      });
+      return;
+    }
+
+    if (prop.startsWith('on')) {
+      const eventName = prop.substring(2).toLowerCase();
+      if (oldProps) root.childNodes[index].removeEventListener(eventName, oldProps[prop]);
+      cloneElement.addEventListener(eventName, props[prop]);
+      return;
+    }
+
+    const newAttribute = document.createAttribute(prop);
+    newAttribute.value = props[prop];
+    cloneElement.setAttributeNode(newAttribute);
+  });
+
+  return cloneElement;
+}
+
 export function createVirtualDOM(element) {
   const { type, props } = element;
   if (type === 'TEXT_ELEMENT') return document.createTextNode(props.nodeValue);

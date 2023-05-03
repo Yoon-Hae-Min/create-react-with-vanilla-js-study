@@ -1,4 +1,4 @@
-import Kreact, { useState } from './Kreact/Kreact.js';
+import Kreact, { useState } from './Kreact';
 
 export default function Child({ name }) {
   const [count, setCount] = useState(1);
