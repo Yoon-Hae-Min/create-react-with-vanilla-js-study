@@ -69,3 +69,5 @@ React.createElement(MyButton, { color: "blue", shadowSize: 2 }, "Click Me");
 ## 참고자료
 
 [우아한 태크 캠프 - woowahan-jsx](https://github.com/woowa-techcamp-2021/woowahan-jsx/blob/main/src/index.ts)
+
+[바닐라JS(TS)로 리액트 SPA 구현하기](https://danminblog.tistory.com/81)
