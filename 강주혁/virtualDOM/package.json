@@ -1,0 +1,27 @@
+{
+  "name": "virtual-dom",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "dev": "webpack serve"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.8",
+    "@babel/plugin-transform-react-jsx": "^7.21.0",
+    "@babel/preset-env": "^7.21.4",
+    "@webpack-cli/generators": "^3.0.2",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.5",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2",
+    "webpack-dev-server": "^4.13.3"
+  }
+}
