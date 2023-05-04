@@ -1,5 +1,3 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,7 +18,8 @@ const config = {
     host: "localhost",
   },
   plugins: [new HtmlWebpackPlugin({
-    template: "./public/index.html" // index.html을 기본 템플릿으로 반영할 수 있도록 설정
+    template: "./public/index.html",
+    inject: false,
   })
   ],
   module: {

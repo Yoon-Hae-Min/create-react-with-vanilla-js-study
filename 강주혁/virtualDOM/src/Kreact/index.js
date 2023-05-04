@@ -1,4 +1,4 @@
-import { createVirtualDOM, updateVirtualDOM, updateRealDOM } from "../KreactDOM";
+import { updateVirtualDOM } from "../KreactDOM";
 
 function kreact() {
   const _states = [];
@@ -120,18 +120,8 @@ function kreact() {
     console.log('렌더링')
     _newNode = _rootComponent();
 
-    if (!_oldNode) {
-      updateRealDOM(createVirtualDOM(_newNode), _root);
-      _oldNode = _newNode;
-      return;
-    }
-
-    const cloneRoot = _root.cloneNode(true);
-    const element = updateVirtualDOM(cloneRoot, _oldNode, _newNode);
-
-    updateRealDOM(element, _root);
+    updateVirtualDOM(_root, _oldNode, _newNode);
     _oldNode = _newNode;
-    _root = element;
   }
 
   function render(root, component) {
