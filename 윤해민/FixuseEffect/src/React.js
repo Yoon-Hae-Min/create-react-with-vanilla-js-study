@@ -115,12 +115,18 @@ function React() {
     }
     depsCursor += 1;
   };
+  const Fragment = "REACT_FRAGMENT_TYPE";
 
   const createElement = (type, props, ...children) => {
+    let node;
     if (typeof type === "function") {
-      return type();
+      return type(props);
     }
-    const node = document.createElement(type);
+    if (type === Fragment) {
+      node = document.createDocumentFragment();
+    } else {
+      node = document.createElement(type);
+    }
 
     for (let prop in props) {
       if (prop === "className") {
@@ -137,6 +143,7 @@ function React() {
         node.setAttribute(prop, props[prop]);
       }
     }
+
     for (let child of children) {
       if (typeof child === "string" || typeof child === "number") {
         node.appendChild(document.createTextNode(child));
@@ -151,6 +158,7 @@ function React() {
     useState,
     useEffect,
     createElement,
+    Fragment,
   };
 }
 

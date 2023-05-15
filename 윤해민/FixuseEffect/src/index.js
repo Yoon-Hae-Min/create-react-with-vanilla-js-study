@@ -33,7 +33,7 @@ function App() {
   return (
     <div>
       <h1>useState</h1>
-      <Component />
+      <Component props={{ a: "b" }} abc={123} />
       <button
         id="btn1"
         onClick={handleIncrement}

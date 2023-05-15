@@ -105,11 +105,18 @@ function React() {
     }
     depsCursor += 1;
   };
+  const Fragment = "REACT_FRAGMENT_TYPE";
   const createElement = (type, props, ...children) => {
+    let node;
     if (typeof type === "function") {
-      return type();
+      return type(props);
     }
-    const node = document.createElement(type);
+    console.log(type);
+    if (type === Fragment) {
+      node = document.createDocumentFragment();
+    } else {
+      node = document.createElement(type);
+    }
     for (let prop in props) {
       if (prop === "className") {
         node.setAttribute("class", props[prop]);
@@ -138,7 +145,8 @@ function React() {
     render,
     useState,
     useEffect,
-    createElement
+    createElement,
+    Fragment
   };
 }
 export default React();
