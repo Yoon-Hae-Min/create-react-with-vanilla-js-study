@@ -1,4 +1,4 @@
-import { updateVirtualDOM } from "../KreactDOM";
+import { updateRealDOM, updateVirtualDOM } from "../KreactDOM";
 
 function kreact() {
   const _states = [];
@@ -120,7 +120,9 @@ function kreact() {
     console.log('렌더링')
     _newNode = _rootComponent();
 
-    updateVirtualDOM(_root, _oldNode, _newNode);
+    const commitMap = new Map();
+    updateVirtualDOM(_root, _oldNode, _newNode, commitMap); // render phase
+    updateRealDOM(commitMap); // commit phase
     _oldNode = _newNode;
   }
 
