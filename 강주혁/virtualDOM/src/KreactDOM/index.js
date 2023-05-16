@@ -47,10 +47,10 @@ export function createVirtualDOM(element) {
   return newElement;
 };
 
-export function updateVirtualDOM(root, oldNode, newNode, index = 0) {
-  if (!oldNode) return root.appendChild(createVirtualDOM(newNode));
-  if (!newNode) return root.removeChild(root.childNodes[index]);
-  if (oldNode.type !== newNode.type) return root.replaceChild(createVirtualDOM(newNode), root.childNodes[index]);
+export function updateVirtualDOM(root, oldNode, newNode, commitMap, index = 0) {
+  if (!oldNode) return commitMap.set('appendChild', { root, child: createVirtualDOM(newNode) });
+  if (!newNode) return commitMap.set('removeChild', { root, child: createVirtualDOM(root.childNodes[index]) });
+  if (oldNode.type !== newNode.type) return commitMap.set('replaceChild', { root, newChild: createVirtualDOM(newNode), oldChild: root.childNodes[index] });
 
   if (
     oldNode.type === 'TEXT_ELEMENT'
@@ -58,7 +58,7 @@ export function updateVirtualDOM(root, oldNode, newNode, index = 0) {
     && oldNode.props.nodeValue !== newNode.props.nodeValue
   ) {
     const newElement = createVirtualDOM(newNode);
-    return root.replaceChild(newElement, root.childNodes[index]);
+    return commitMap.set('replaceChild', { root, newChild: newElement, oldChild: root.childNodes[index] });
   }
 
   const oldProps = oldNode.props;
@@ -74,9 +74,26 @@ export function updateVirtualDOM(root, oldNode, newNode, index = 0) {
       oldNode.type === 'FRAGMENT' ? root : root.childNodes[index],
       oldProps.children[i],
       newProps.children[i],
+      commitMap,
       i
     );
   }
 
   return root;
+}
+
+export function updateRealDOM(commitMap) {
+  commitMap.forEach((value, key) => {
+    switch (key) {
+      case 'appendChild':
+        value.root.appendChild(value.child);
+        break;
+      case 'removeChild':
+        value.root.removeChild(value.child);
+        break;
+      case 'replaceChild':
+        value.root.replaceChild(value.newChild, value.oldChild);
+        break;
+    }
+  });
 }
