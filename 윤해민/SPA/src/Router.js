@@ -16,7 +16,7 @@ export const Routes = ({ children }) => {
       reRender();
     });
   }
-  console.log(children);
+  console.log(reRenderCount);
   return React.createElement(React.Fragment, null, ...children);
 };
 

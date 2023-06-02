@@ -18,7 +18,6 @@ function React() {
   let rootComponent;
 
   const updateElement = (parent, oldNode, newNode, index = 0) => {
-    console.log(parent, oldNode, newNode, index);
     if (!oldNode && newNode) {
       // 노드가 추가 되었을떄
       return parent.appendChild(newNode);
@@ -44,7 +43,6 @@ function React() {
     const oldLength = oldNode.childNodes.length;
     // 자식 노드 탐색
     for (let i = 0; i < Math.max(newLength, oldLength); i++) {
-      console.log(newNode.childNodes);
       updateElement(oldNode, oldNode.childNodes[i], newNode.childNodes[i], i);
     }
   };
@@ -119,7 +117,6 @@ function React() {
   const Fragment = "REACT_FRAGMENT_TYPE";
 
   const createElement = (type, props, ...children) => {
-    console.log(type, props, children);
     let node;
     if (typeof type === "function") {
       return type({ ...props, children: [...children] });
