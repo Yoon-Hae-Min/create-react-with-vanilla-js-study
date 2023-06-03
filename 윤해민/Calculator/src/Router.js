@@ -1,4 +1,4 @@
-import React, { reRender, reRenderCount } from "./React.js";
+import React, { reRender, render, useEffect } from "./React.js";
 
 let currentPath = window.location.pathname;
 
@@ -10,24 +10,23 @@ export const Route = ({ path, element }) => {
 };
 
 export const Routes = ({ children }) => {
-  if (reRenderCount < 1) {
+  useEffect(() => {
     window.addEventListener("popstate", () => {
       currentPath = window.location.pathname;
-      reRender();
+      render();
     });
-  }
-  console.log(reRenderCount);
+  }, []);
   return React.createElement(React.Fragment, null, ...children);
 };
 
-export const Link = ({ path, element }) => {
+export const Link = ({ path, element, style }) => {
   const changePage = (e) => {
     e.preventDefault();
     currentPath = path;
     navigate(e.target.href);
   };
   return (
-    <a href={path} onClick={changePage}>
+    <a href={path} onClick={changePage} style={style}>
       {element}
     </a>
   );
@@ -35,7 +34,7 @@ export const Link = ({ path, element }) => {
 
 const navigate = (path) => {
   window.history.pushState(null, null, path);
-  reRender();
+  render();
 };
 
 export default Link;

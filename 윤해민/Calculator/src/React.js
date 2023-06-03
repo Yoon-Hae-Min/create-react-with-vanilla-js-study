@@ -62,10 +62,16 @@ function React() {
   };
 
   const render = (component) => {
-    rootComponent = component;
-    rootElement.appendChild(component());
+    console.log(state);
     cursor = 0;
     depsCursor = 0;
+    if (component) {
+      rootComponent = component;
+      rootElement.appendChild(component());
+    } else {
+      rootElement.innerHTML = "";
+      rootElement.appendChild(rootComponent());
+    }
   };
 
   const reRender = () => {
@@ -88,6 +94,7 @@ function React() {
   };
 
   const useState = (initialState) => {
+    console.log(reRenderCount);
     if (reRenderCount === 0) {
       state.push(initialState);
       setters.push(createSetter(cursor));
@@ -142,7 +149,7 @@ function React() {
         node.setAttribute(prop, props[prop]);
       }
     }
-
+    children = children.flat();
     for (let child of children) {
       if (typeof child === "string" || typeof child === "number") {
         node.appendChild(document.createTextNode(child));

@@ -1,12 +1,153 @@
-import React from "../React.js";
-import { Link } from "../Router.js";
-const MainPage = () => {
+import React, { useEffect, useState } from "../React.js";
+import NavBar from "../components/NavBar.js";
+
+const MainPage = ({ setExpressionList }) => {
+  const [expression, setExpression] = useState(" ");
+
+  const handleAddExpression = (e, number) => {
+    setExpression((pre) => pre + number);
+  };
+
+  const handleRemoveExpression = (e) => {
+    setExpression((pre) => pre.substring(0, pre.length - 1));
+  };
+
+  const handleResetExpression = (e) => {
+    setExpression(" ");
+  };
+
+  const calculate = (e) => {
+    setExpression((pre) => {
+      const result = eval(pre).toString();
+      setExpressionList((preList) => [...preList, pre + "=" + result]);
+      return result;
+    });
+  };
+
   return (
     <div>
-      <h1>메인 페이지 입니다.</h1>
-      <Link path={"/post"} element={"post 페이지"}></Link>
-      <Link path={"/"} element={"main 페이지"}></Link>
-      <Link path={"/user"} element={"user 페이지"}></Link>
+      <NavBar />
+      <h2>사칙 연산 계산기</h2>
+      <div style={{ width: "795px", border: "solid", height: "20px" }}>
+        {expression}
+      </div>
+      <div
+        style={{
+          display: "grid",
+          "grid-template-columns": "200px 200px 200px 200px",
+        }}
+      >
+        <button onClick={handleResetExpression}>초기화</button>
+        <button onClick={handleRemoveExpression}>←</button>
+        <button></button>
+        <button onClick={calculate}>=</button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "1");
+          }}
+        >
+          1
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "2");
+          }}
+        >
+          2
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "3");
+          }}
+        >
+          3
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "+");
+          }}
+        >
+          +
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "4");
+          }}
+        >
+          4
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "5");
+          }}
+        >
+          5
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "6");
+          }}
+        >
+          6
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "-");
+          }}
+        >
+          -
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "7");
+          }}
+        >
+          7
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "8");
+          }}
+        >
+          8
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "9");
+          }}
+        >
+          9
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "*");
+          }}
+        >
+          *
+        </button>
+        <button></button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "0");
+          }}
+        >
+          0
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, ".");
+          }}
+        >
+          .
+        </button>
+        <button
+          onClick={(e) => {
+            handleAddExpression(e, "/");
+          }}
+        >
+          /
+        </button>
+      </div>
     </div>
   );
 };

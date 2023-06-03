@@ -1,16 +1,21 @@
-import React, { render } from "./React.js";
+import React, { render, useState } from "./React.js";
 import { Route, Routes } from "./Router.js";
 import MainPage from "./pages/main.js";
-import PostPage from "./pages/post.js";
-import UserPage from "./pages/user.js";
+import ListPage from "./pages/list.js";
 
 function App() {
+  const [expressionList, setExpressionList] = useState([]);
   return (
     <div>
       <Routes>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/post" element={<PostPage />}></Route>
-        <Route path="/user" element={<UserPage />}></Route>
+        <Route
+          path="/"
+          element={<MainPage setExpressionList={setExpressionList} />}
+        />
+        <Route
+          path="/list"
+          element={<ListPage expressionList={expressionList} />}
+        />
       </Routes>
     </div>
   );
