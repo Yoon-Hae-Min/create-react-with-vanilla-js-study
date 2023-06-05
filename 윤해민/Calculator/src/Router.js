@@ -1,4 +1,4 @@
-import React, { reRender, render, useEffect } from "./React.js";
+import React, { render, useEffect } from "./React.js";
 
 let currentPath = window.location.pathname;
 

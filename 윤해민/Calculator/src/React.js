@@ -62,9 +62,12 @@ function React() {
   };
 
   const render = (component) => {
-    console.log(state);
     cursor = 0;
     depsCursor = 0;
+    if (reRenderCount === 0) {
+      state = [];
+      setters = [];
+    }
     if (component) {
       rootComponent = component;
       rootElement.appendChild(component());
@@ -94,7 +97,6 @@ function React() {
   };
 
   const useState = (initialState) => {
-    console.log(reRenderCount);
     if (reRenderCount === 0) {
       state.push(initialState);
       setters.push(createSetter(cursor));

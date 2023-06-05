@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "../React.js";
 import NavBar from "../components/NavBar.js";
 
 const MainPage = ({ setExpressionList }) => {
-  const [expression, setExpression] = useState(" ");
+  const [expression, setExpression] = useState("");
 
   const handleAddExpression = (e, number) => {
     setExpression((pre) => pre + number);
@@ -16,8 +16,9 @@ const MainPage = ({ setExpressionList }) => {
     setExpression(" ");
   };
 
-  const calculate = (e) => {
+  const handleCalculate = (e) => {
     setExpression((pre) => {
+      if (!pre || isNaN(pre.charAt(pre.length - 1))) return pre;
       const result = eval(pre).toString();
       setExpressionList((preList) => [...preList, pre + "=" + result]);
       return result;
@@ -40,7 +41,7 @@ const MainPage = ({ setExpressionList }) => {
         <button onClick={handleResetExpression}>초기화</button>
         <button onClick={handleRemoveExpression}>←</button>
         <button></button>
-        <button onClick={calculate}>=</button>
+        <button onClick={handleCalculate}>=</button>
         <button
           onClick={(e) => {
             handleAddExpression(e, "1");
