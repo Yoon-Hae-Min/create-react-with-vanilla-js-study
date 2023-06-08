@@ -17,7 +17,9 @@ export default function createRouter(root, routes = []) {
   function push(pathname, state) {
     history.pushState(state, null, pathname);
 
-    routeMap.set(pathname, { ...routeMap.get(pathname), outlet: state?.outlet ?? false });
+    if (state?.outlet) {
+      routeMap.set(pathname, { ...routeMap.get(pathname), outlet: state?.outlet ?? false });
+    }
 
     _render(root, pathname);
   }
@@ -30,8 +32,7 @@ export default function createRouter(root, routes = []) {
     const { element, type, parentPathname, outlet } = routeMap.get(pathname);
     if (!element) throw new Error('NOT FOUND');
 
-    if (isPopState) {
-
+    if (isPopState || type === 'child') {
       const key = type === 'child' ? parentPathname : pathname;
       const { outlet } = routeMap.get(key);
 
@@ -41,28 +42,12 @@ export default function createRouter(root, routes = []) {
 
         return;
       }
-
-      root.innerHTML = '';
-      render(root, element);
-
-      return;
     }
 
     if (outlet && type === 'parent') {
       render(document.getElementById(pathname), element);
 
       return;
-    }
-
-    if (type === 'child') {
-      const { outlet } = routeMap.get(parentPathname)
-
-      if (outlet) {
-        document.getElementById(parentPathname).innerHTML = '';
-        render(document.getElementById(parentPathname), element);
-
-        return;
-      }
     }
 
     root.innerHTML = '';
