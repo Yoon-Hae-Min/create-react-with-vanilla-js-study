@@ -1,3 +1,5 @@
+import Kreact from "../Kreact";
+
 const getElementWithStyle = (element, props, oldProps) => {
   Object.keys(props).forEach(prop => {
     if (prop === 'ref' || prop === 'key' || prop === 'children') return;
@@ -29,6 +31,7 @@ const getElementWithStyle = (element, props, oldProps) => {
 
 export function createVirtualDOM(element) {
   const { type, props } = element;
+
   if (type === 'TEXT_ELEMENT') return document.createTextNode(props.nodeValue);
   if (type === 'FRAGMENT') {
     const fragment = document.createDocumentFragment();
@@ -40,6 +43,7 @@ export function createVirtualDOM(element) {
   const newElement = getElementWithStyle(document.createElement(type), props);
 
   props.children.forEach(child => {
+    if (!child.type) return;
     newElement.appendChild(createVirtualDOM(child));
   });
 
@@ -48,7 +52,7 @@ export function createVirtualDOM(element) {
 
 export function updateVirtualDOM(root, oldNode, newNode, commitMap, index = 0) {
   if (!oldNode) return commitMap.set('appendChild', { root, child: createVirtualDOM(newNode) });
-  if (!newNode) return commitMap.set('removeChild', { root, child: createVirtualDOM(root.childNodes[index]) });
+  if (!newNode) return commitMap.set('removeChild', { root, child: root.childNodes[index] });
   if (oldNode.type !== newNode.type) return commitMap.set('replaceChild', { root, newChild: createVirtualDOM(newNode), oldChild: root.childNodes[index] });
 
   if (
