@@ -1,5 +1,5 @@
 {
-  "name": "virtual-dom",
+  "name": "spa",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",

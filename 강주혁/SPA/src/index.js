@@ -22,7 +22,6 @@ export const router = createRouter(document.getElementById('root'),
   ]
 );
 
-console.log('하이')
 
 const root = document.getElementById('root');
 render(root, Home);
