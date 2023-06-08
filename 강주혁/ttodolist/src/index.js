@@ -1,8 +1,5 @@
 import App from "./App";
 import Kreact, { render } from "./core/Kreact";
-import createRouter from "./core/Kreact-router";
-import Home from "./pages/Home";
-import TodoList from "./pages/Todolist";
 import './styles/global.css'
 
 const root = document.getElementById('root');
