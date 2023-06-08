@@ -2,9 +2,8 @@ import { RouterContext } from "../../App";
 import Kreact from "../Kreact";
 
 export function Outlet({ pathname }) {
-  let router = null;
   setTimeout(() => {
-    router = Kreact.useContext(RouterContext);
+    const router = Kreact.useContext(RouterContext);
     if (!router) {
       return;
     }

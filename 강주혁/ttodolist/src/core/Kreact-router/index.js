@@ -18,7 +18,7 @@ export default function createRouter(root, routes = []) {
     history.pushState(state, null, pathname);
 
     if (state?.outlet) {
-      routeMap.set(pathname, { ...routeMap.get(pathname), outlet: state?.outlet ?? false });
+      routeMap.set(pathname, { ...routeMap.get(pathname), outlet: state.outlet });
     }
 
     _render(root, pathname);

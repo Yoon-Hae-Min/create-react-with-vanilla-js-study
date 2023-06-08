@@ -30,7 +30,6 @@ function kreact() {
   }
 
   function useContext(context) {
-    console.log('useContext', context._currentValue)
     return context._currentValue;
   }
 
@@ -39,11 +38,6 @@ function kreact() {
       _currentValue: defaultValue,
       Provider: function ({ value, children }) {
         context._currentValue = value;
-        console.log('create context')
-        console.log(children)
-        if (!flag) {
-          // _rootComponent();
-        }
         return children;
       },
       Consumer: function ({ children }) {
